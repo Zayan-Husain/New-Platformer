@@ -50,6 +50,11 @@ class tilemap extends yentity {
       var p = new player(x, y);
       t.world.add(p);
     }
+    if (id == 4) {
+      var ft = new tile(x, y);
+      ft.type = "fake_tile";
+      t.world.add(ft);
+    }
   } //end gen_tile
 } //end class
 ///////////////end tilemap///////////////////
