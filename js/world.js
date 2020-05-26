@@ -53,6 +53,17 @@ class world {
 
 	init() {} //end init
 
+	resetw() 
+	{
+		var t = this;
+		var e;
+		for (var i in t.entitys) {
+			e = t.entitys[i];
+			t.remove(e)
+		}
+		t.entitys = [];
+	} //end resetw
+
 	add(e) {
 		this.entitys[this.entitys.length] = e;
 		e.world = this;

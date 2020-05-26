@@ -15,12 +15,13 @@ class player extends yentity {
     this.zi = 999;
 
     this.on_ground;
-    this.jump_power = -350;
+    this.jump_power = -170;
   } //end constructor
 
   update() {
     var t = this;
     super.update();
+	t.reset_btn();
     t.move();
     t.adjustPosX();
     t.adjustPosY();
@@ -92,5 +93,15 @@ class player extends yentity {
     camera.position.x = t.x;
     camera.position.y = t.y;
   } //end camera_control
+  
+  reset_btn()
+  {
+	  var t=this;
+	  if (keyWentUp("R")) 
+	  {
+		  console.log("reset game");
+		  t.world.init();
+	  }
+  }//end reset_btn
 } //end class
 ///////////////end player///////////////////

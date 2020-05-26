@@ -79,8 +79,8 @@ class yentity {
   move_by(sx, sy) {
     var t = this;
 
-    t.sprite.position.x += sx * (deltaTime / 50);
-    t.sprite.position.y += sy * (deltaTime / 50);
+    t.sprite.position.x += sx ;//* (deltaTime / 50);
+    t.sprite.position.y += sy ;//* (deltaTime / 50);
   } //end move_by
 
   movea(s, a) {
