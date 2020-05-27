@@ -18,14 +18,14 @@ class player extends yentity {
     this.jump_power = -170;
     this.jumps = 0;
     this.max_jumps = 9;
-    this.dash_count = 0;
-    this.max_dash_count = 2;
-    this.dash_power = 50;
-    this.dash_left = 0;
-    this.dash_right = 0;
-    this.dir = "";
-    this.left_dash_counter;
-    this.right_dash_counter;
+
+    this.dash_power = 150;
+
+
+	
+	this.combo ="";
+	this.do_combo;
+	this.combo_timer = new ytimer(20);
   } //end constructor
 
   update() {
@@ -36,7 +36,7 @@ class player extends yentity {
     t.adjustPosX();
     t.adjustPosY();
     t.camera_control();
-    t.dash();
+    t.combo_manger();
   } //end update
   move() {
     var t = this;
@@ -115,17 +115,47 @@ class player extends yentity {
       t.world.init();
     }
   } //end reset_btn
-  dash() {
-    if (keyWentUp("A")) {
-      this.dash_left++;
+  dash(dir) {
+	var t = this;
+	
+	if(!t.do_combo){return;}//exit if did combo
+	
+	console.log("dash: "+dir)
+    
+	if (dir=="left") {
+
+      t.speedx -= t.dash_power;
     }
+	
+    if (dir=="right") {
+
+      t.speedx += t.dash_power;
+    }
+	t.do_combo = false;//do combo once
+  }//end dash
+  
+  combo_manger()
+  {
+	var t = this;
+	if(t.combo_timer.finished())
+	{
+		//reset combo
+		t.combo ="";
+		t.speedx = 0;
+		t.do_combo =true;//can do combo again
+	}
+	
+	if (keyWentUp("A")) {
+      t.combo +="a";
+    }
+	
     if (keyWentUp("D")) {
-      this.dash_right++;
-    }
-    if (this.dash_right >= this.max_dash_count) {
-      this.dash_right = 0;
-      this.speedx += this.dash_power;
-    }
-  }
+      t.combo +="d";
+    }  
+	if(t.combo =="aa"){t.dash("left");}
+	if(t.combo =="dd"){t.dash("right");}
+	
+
+  }//end combo_manger
 } //end class
 ///////////////end player///////////////////
