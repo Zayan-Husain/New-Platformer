@@ -46,6 +46,10 @@ class tilemap extends yentity {
       var ytile = new tile(x, y, id);
       t.world.add(ytile);
     }
+    if (id == 2) {
+      var c = new coin(x, y);
+      t.world.add(c);
+    }
     if (id == 3) {
       var p = new player(x, y);
       t.world.add(p);
@@ -54,6 +58,32 @@ class tilemap extends yentity {
       var ft = new tile(x, y);
       ft.type = "fake_tile";
       t.world.add(ft);
+    }
+    if (id == 5) {
+      var ft = new tile(x, y);
+      ft.type = "tile";
+      t.world.add(ft);
+      ft.sprite.remove();
+    }
+    if (id == 6) {
+      var s = new yentity(x, y);
+      s.type = "sign";
+      s.sign_dir = "right";
+      s.grafic_type = "none";
+      t.world.add(s);
+      s.sprite.remove();
+    }
+    if (id == 7) {
+      var s = new yentity(x, y);
+      s.type = "sign";
+      s.sign_dir = "left";
+      s.grafic_type = "none";
+      t.world.add(s);
+      s.sprite.remove();
+    }
+    if (id == 8) {
+      var e = new enemy(x, y);
+      t.world.add(e);
     }
   } //end gen_tile
 } //end class

@@ -26,18 +26,18 @@ class yentity {
   init() {
     var t = this;
 
-   t.sprite.remove();
-   t.sprite.height = t.h;
-   t.sprite.width = t.w;
+    t.sprite.remove();
+    t.sprite.height = t.h;
+    t.sprite.width = t.w;
 
-   this.sprite = createSprite(this.x, this.y, this.w, this.h);
+    this.sprite = createSprite(this.x, this.y, this.w, this.h);
 
     if (t.grafic_type == "img") {
       t.grafic.resize(t.w, t.h);
       t.sprite.addImage("normal", t.grafic);
 
-	 // var imgs = t.sprite.animation.images;
-	 // console.log(imgs)
+      // var imgs = t.sprite.animation.images;
+      // console.log(imgs)
     }
     if (t.grafic_type == "sprite") {
       t.sprite.addAnimation("normal", t.grafic);
@@ -67,7 +67,9 @@ class yentity {
     var t = this;
     t.w = w;
     t.h = h;
-	if (t.grafic_type == "img") {t.grafic.resize(t.w, t.h);}
+    if (t.grafic_type == "img") {
+      t.grafic.resize(t.w, t.h);
+    }
   } //end set_wh
 
   sethb_wh(w2, h2) {
@@ -79,8 +81,8 @@ class yentity {
   move_by(sx, sy) {
     var t = this;
 
-    t.sprite.position.x += sx ;//* (deltaTime / 50);
-    t.sprite.position.y += sy ;//* (deltaTime / 50);
+    t.sprite.position.x += sx; //* (deltaTime / 50);
+    t.sprite.position.y += sy; //* (deltaTime / 50);
   } //end move_by
 
   movea(s, a) {
@@ -161,7 +163,7 @@ class yentity {
     var t = this;
     if (t.grafic_type == "img") {
       tint(255, t.alpha);
-	  t.grafic.resize(t.w, t.h);
+      t.grafic.resize(t.w, t.h);
       t.sprite.changeAnimation(t.current_anim);
     }
     if (t.grafic_type == "sprite") {

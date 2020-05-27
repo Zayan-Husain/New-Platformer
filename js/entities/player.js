@@ -17,15 +17,13 @@ class player extends yentity {
     this.on_ground;
     this.jump_power = -170;
     this.jumps = 0;
-    this.max_jumps = 9;
+    this.max_jumps = 2000;
 
     this.dash_power = 150;
 
-
-	
-	this.combo ="";
-	this.do_combo;
-	this.combo_timer = new ytimer(20);
+    this.combo = "";
+    this.do_combo;
+    this.combo_timer = new ytimer(5);
   } //end constructor
 
   update() {
@@ -37,6 +35,7 @@ class player extends yentity {
     t.adjustPosY();
     t.camera_control();
     t.combo_manger();
+    t.nextLevel();
   } //end update
   move() {
     var t = this;
@@ -94,6 +93,13 @@ class player extends yentity {
       }
     }
   } //end adjustPosY
+  nextLevel() {
+    if (keyWentUp("N")) {
+      this.world.currentLevel = "level_1";
+      this.world.resetw();
+      this.world.init();
+    }
+  }
   loseCondition() {
     var t = this;
   } //end lose condition
@@ -116,46 +122,46 @@ class player extends yentity {
     }
   } //end reset_btn
   dash(dir) {
-	var t = this;
-	
-	if(!t.do_combo){return;}//exit if did combo
-	
-	console.log("dash: "+dir)
-    
-	if (dir=="left") {
+    var t = this;
 
+    if (!t.do_combo) {
+      return;
+    } //exit if did combo
+
+    console.log("dash: " + dir);
+
+    if (dir == "left") {
       t.speedx -= t.dash_power;
     }
-	
-    if (dir=="right") {
 
+    if (dir == "right") {
       t.speedx += t.dash_power;
     }
-	t.do_combo = false;//do combo once
-  }//end dash
-  
-  combo_manger()
-  {
-	var t = this;
-	if(t.combo_timer.finished())
-	{
-		//reset combo
-		t.combo ="";
-		t.speedx = 0;
-		t.do_combo =true;//can do combo again
-	}
-	
-	if (keyWentUp("A")) {
-      t.combo +="a";
-    }
-	
-    if (keyWentUp("D")) {
-      t.combo +="d";
-    }  
-	if(t.combo =="aa"){t.dash("left");}
-	if(t.combo =="dd"){t.dash("right");}
-	
+    t.do_combo = false; //do combo once
+  } //end dash
 
-  }//end combo_manger
+  combo_manger() {
+    var t = this;
+    if (t.combo_timer.finished()) {
+      //reset combo
+      t.combo = "";
+      t.speedx = 0;
+      t.do_combo = true; //can do combo again
+    }
+
+    if (keyWentUp("A")) {
+      t.combo += "a";
+    }
+
+    if (keyWentUp("D")) {
+      t.combo += "d";
+    }
+    if (t.combo == "aa") {
+      t.dash("left");
+    }
+    if (t.combo == "dd") {
+      t.dash("right");
+    }
+  } //end combo_manger
 } //end class
 ///////////////end player///////////////////

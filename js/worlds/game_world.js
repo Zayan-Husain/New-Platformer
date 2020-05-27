@@ -4,12 +4,13 @@ class game_world extends world {
     this.level_tst = ymaps.level_tst;
     this.level_1 = ymaps.level_1;
     this.wh = wh2;
+    this.currentLevel = "level_1";
   }
 
   init() {
     var t = this;
     t.resetw(); //reset world
-    var tmap = new tilemap(this.level_1);
+    var tmap = new tilemap(ymaps[this.currentLevel]);
     t.add(tmap);
 
     tmap.draw_map();
