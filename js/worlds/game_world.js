@@ -10,6 +10,13 @@ class game_world extends world {
   init() {
     var t = this;
     t.resetw(); //reset world
+	//remove all p5 sprites
+	for(var i=0; i<allSprites.length; i++)
+	{
+		var s = allSprites[i];
+
+		s.remove();
+	}
     var tmap = new tilemap(ymaps[this.currentLevel]);
     t.add(tmap);
 

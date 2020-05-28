@@ -17,7 +17,6 @@ class yentity {
     this.zi = 1; //zIndex
     this.grafic = g;
     this.img;
-    this.sprite = createSprite(this.x, this.y, this.w, this.h);
     this.grafic_type = "img";
     this.current_anim = "normal";
     this.debug;
@@ -26,9 +25,6 @@ class yentity {
   init() {
     var t = this;
 
-    t.sprite.remove();
-    t.sprite.height = t.h;
-    t.sprite.width = t.w;
 
     this.sprite = createSprite(this.x, this.y, this.w, this.h);
 
@@ -147,7 +143,8 @@ class yentity {
 
   update() {
     var t = this;
-    //make sure xy == sprite xy
+	if(!t.sprite){return;}
+   //make sure xy == sprite xy
     if (t.x != t.sprite.position.x || t.y != t.sprite.position.y) {
       t.x = t.sprite.position.x;
       t.y = t.sprite.position.y;

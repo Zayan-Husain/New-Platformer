@@ -14,7 +14,7 @@ class tilemap extends yentity {
   init() {
     var t = this;
 
-    t.sprite.remove();
+   // t.sprite.remove();
   }
   update() {
     var t = this;

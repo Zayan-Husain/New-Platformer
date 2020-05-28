@@ -59,9 +59,17 @@ class world {
 		var e;
 		for (var i in t.entitys) {
 			e = t.entitys[i];
-			t.remove(e)
+			t.remove(e);
 		}
 		t.entitys = [];
+		
+		//remove all p5 sprites
+		for(var i=0; i<allSprites.length; i++)
+		{
+		    var s = allSprites[i];
+
+			s.remove();
+		}
 	} //end resetw
 
 	add(e) {
@@ -76,7 +84,8 @@ class world {
 		if (e.remove) {
 			e.remove();
 		}
-		e.sprite.remove();
+		if(e.sprite){e.sprite.remove();}
+		
 		var index = this.entitys.indexOf(e);
 		this.entitys.splice(index, 1);
 		this.entitys_count--;
