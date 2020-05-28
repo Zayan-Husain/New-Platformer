@@ -128,7 +128,7 @@ class player extends yentity {
       return;
     } //exit if did combo
 
-    console.log("dash: " + dir);
+    // console.log("dash: " + dir);
 
     if (dir == "left") {
       t.speedx -= t.dash_power;
