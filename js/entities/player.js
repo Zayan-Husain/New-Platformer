@@ -36,6 +36,7 @@ class player extends yentity {
     t.camera_control();
     t.nextLevel();
     t.touchEnemy();
+    t.boundaries();
   } //end update
   move() {
     var t = this;
@@ -75,7 +76,11 @@ class player extends yentity {
     t.speedy *= t.vf;
     t.speedx *= t.hf;
   } //end move
-
+  boundaries() {
+    if (this.y > 1500) {
+      this.lose_life();
+    }
+  }
   adjustPosX() {
     var t = this;
     var xs = Math.sign(t.speedx);
@@ -102,17 +107,14 @@ class player extends yentity {
     }
   } //end adjustPosY
   nextLevel() {
-    if (keyWentUp("N")) {
-      var w = this.world;
+    var w = this.world;
+    if (this.hit_test("end_coin", 0, 0)) {
       w.nextLevel();
     }
   }
   ladderClimb() {
     var t = this;
     var l = t.hit_test("ladder", 0, 0);
-    if (l) {
-      console.log("touch");
-    }
     if (!l || keyWentUp("W")) {
       t.gravity = t.original_gravity;
       return;
@@ -126,9 +128,13 @@ class player extends yentity {
     var t = this;
     var e = t.hit_test("enemy", 0, 0);
     if (e) {
-      t.world.lives--;
-      t.world.init();
+      t.lose_life();
     }
+  }
+  lose_life() {
+    var t = this;
+    t.world.lives--;
+    t.world.init();
   }
   camera_control() {
     var t = this;

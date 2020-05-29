@@ -95,6 +95,16 @@ class tilemap extends yentity {
       l.sethb_wh(20, 50);
       t.world.add(l);
     }
+    if (id == 10) {
+      var ec = new coin(x, y);
+      ec.type = "end_coin";
+      t.world.add(ec);
+    }
+    if (id == -2) {
+      var bc = new coin(x, y);
+      bc.type = "bonus_coin";
+      t.world.add(bc);
+    }
   } //end gen_tile
 } //end class
 ///////////////end tilemap///////////////////

@@ -6,6 +6,7 @@ class game_world extends world {
     this.wh = wh2;
     this.currentLevel = 0;
     this.lives = 3;
+    this.score = 0;
   }
 
   init() {
@@ -38,4 +39,15 @@ class game_world extends world {
       t.change_world("game_over", true);
     }
   } //end lose condition
+  render() {
+    super.render();
+    this.ui();
+  }
+  ui() {
+    camera.off();
+    this.ytext(this.wh.w / 2, 22, "Score: " + this.score);
+    this.ytext(this.wh.w / 2, 44, "Level: " + (this.currentLevel + 1));
+    this.ytext(this.wh.w / 2, 66, "Lives: " + this.lives);
+    camera.on();
+  }
 }
