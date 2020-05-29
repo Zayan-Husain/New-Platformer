@@ -34,12 +34,19 @@ class player extends yentity {
     t.adjustPosX();
     t.adjustPosY();
     t.camera_control();
-    t.combo_manger();
     t.nextLevel();
+    t.touchEnemy();
   } //end update
   move() {
     var t = this;
     var g = t.hit_test("tile", 0, 1); //collide ground from bottom
+    var d = keyDown("SHIFT");
+    if (d && keyDown("A")) {
+      t.speedx -= t.speed;
+    }
+    if (d && keyDown("D")) {
+      t.speedx += t.speed;
+    }
     if (keyDown("A")) {
       t.speedx -= t.speed;
       this.dir = "left";
@@ -60,6 +67,7 @@ class player extends yentity {
       t.speedy += t.gravity;
       t.on_ground = false;
     }
+    t.ladderClimb();
     if (keyWentUp("SPACE") && t.jumps < t.max_jumps) {
       t.speedy += this.jump_power;
       t.jumps++;
@@ -95,14 +103,33 @@ class player extends yentity {
   } //end adjustPosY
   nextLevel() {
     if (keyWentUp("N")) {
-      this.world.currentLevel = "level_1";
-      this.world.resetw();
-      this.world.init();
+      var w = this.world;
+      w.nextLevel();
     }
   }
-  loseCondition() {
+  ladderClimb() {
     var t = this;
-  } //end lose condition
+    var l = t.hit_test("ladder", 0, 0);
+    if (l) {
+      console.log("touch");
+    }
+    if (!l || keyWentUp("W")) {
+      t.gravity = t.original_gravity;
+      return;
+    }
+    if (l && keyDown("W")) {
+      t.speedy -= 10;
+      t.gravity = 0;
+    }
+  }
+  touchEnemy() {
+    var t = this;
+    var e = t.hit_test("enemy", 0, 0);
+    if (e) {
+      t.world.lives--;
+      t.world.init();
+    }
+  }
   camera_control() {
     var t = this;
     if (mouseIsPressed) {
@@ -124,10 +151,9 @@ class player extends yentity {
   dash(dir) {
     var t = this;
 
-    if (!t.do_combo) {
+    if (!keyDown("SHIFT")) {
       return;
     } //exit if did combo
-
     // console.log("dash: " + dir);
 
     if (dir == "left") {
@@ -139,29 +165,5 @@ class player extends yentity {
     }
     t.do_combo = false; //do combo once
   } //end dash
-
-  combo_manger() {
-    var t = this;
-    if (t.combo_timer.finished()) {
-      //reset combo
-      t.combo = "";
-      t.speedx = 0;
-      t.do_combo = true; //can do combo again
-    }
-
-    if (keyWentUp("A")) {
-      t.combo += "a";
-    }
-
-    if (keyWentUp("D")) {
-      t.combo += "d";
-    }
-    if (t.combo == "aa") {
-      t.dash("left");
-    }
-    if (t.combo == "dd") {
-      t.dash("right");
-    }
-  } //end combo_manger
 } //end class
 ///////////////end player///////////////////

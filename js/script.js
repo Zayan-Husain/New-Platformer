@@ -11,7 +11,9 @@ function setup() {
 
   //create worlds
   var ygame_world = new game_world("game_world", yscreen);
+  var game_over_world = new game_over("game_over", yscreen);
   yeng.add_world(ygame_world);
+  yeng.add_world(game_over_world);
 
   //set current world
   yeng.set_c_world("game_world");

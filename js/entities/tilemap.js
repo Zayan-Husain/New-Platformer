@@ -14,7 +14,7 @@ class tilemap extends yentity {
   init() {
     var t = this;
 
-   // t.sprite.remove();
+    // t.sprite.remove();
   }
   update() {
     var t = this;
@@ -83,7 +83,17 @@ class tilemap extends yentity {
     }
     if (id == 8) {
       var e = new enemy(x, y);
+      e.type = "enemy";
       t.world.add(e);
+    }
+    if (id == 9) {
+      var l = new yentity(x, y);
+      l.type = "ladder";
+      l.grafic_type = "none";
+      l.debug = true;
+      l.h = 50;
+      l.sethb_wh(20, 50);
+      t.world.add(l);
     }
   } //end gen_tile
 } //end class
