@@ -17,7 +17,7 @@ class player extends yentity {
     this.on_ground;
     this.jump_power = -170;
     this.jumps = 0;
-    this.max_jumps = 2;//000;
+    this.max_jumps = 2; //000;
 
     this.dash_power = 150;
 
@@ -70,7 +70,7 @@ class player extends yentity {
       t.on_ground = false;
     }
     t.ladderClimb();
-	t.wall_climb()
+    t.wall_climb();
     if (keyWentUp("SPACE") && t.jumps < t.max_jumps) {
       t.speedy += this.jump_power;
       t.jumps++;
@@ -78,20 +78,19 @@ class player extends yentity {
     t.speedy *= t.vf;
     t.speedx *= t.hf;
   } //end move
-  
-  wall_climb()
-  {
-	var t = this;
+
+  wall_climb() {
+    var t = this;
     var gl = t.hit_test("tile", 2, 0); //collide ground from bottom
     var gr = t.hit_test("tile", -2, 0); //collide ground from bottom
-    if(gl||gr && t.climb_timer.finished())
-	{
-		t.jumps--;
-		if(t.jumps<0){t.jumps=0;}
-	}
-	
+    if (gl || (gr && t.climb_timer.finished())) {
+      t.jumps--;
+      if (t.jumps < 0) {
+        t.jumps = 0;
+      }
+    }
   }
-  
+
   boundaries() {
     if (this.y > 1500) {
       this.lose_life();

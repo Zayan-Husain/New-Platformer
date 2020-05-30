@@ -138,7 +138,9 @@ class world {
     for (var i in cw.entitys) {
       e = cw.entitys[i];
       e.active = true;
-      e.sprite.visible = true;
+      if (e.sprite) {
+        e.sprite.visible = true;
+      }
     }
   } //end change_world
   ytext(x, y, s) {

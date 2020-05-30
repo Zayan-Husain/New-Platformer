@@ -12,11 +12,15 @@ function setup() {
   //create worlds
   var ygame_world = new game_world("game_world", yscreen);
   var game_over_world = new game_over("game_over", yscreen);
+  var start = new start_screen("start_screen", yscreen);
+  var credits = new credits_screen("credits", yscreen);
   yeng.add_world(ygame_world);
+  yeng.add_world(credits);
   yeng.add_world(game_over_world);
+  yeng.add_world(start);
 
   //set current world
-  yeng.set_c_world("game_world");
+  yeng.set_c_world("start_screen");
 }
 
 function draw() {
