@@ -41,6 +41,11 @@ class coin extends yentity {
     var p = t.hit_test("player", 0, 0);
     if (p) {
       t.world.remove(t);
+      if (this.get_by_type("coin").length == 0) {
+        p.all_coins_collected = true;
+      } else {
+        p.all_coins_collected = false;
+      }
       this.world.score += this.coin_value;
     }
   }

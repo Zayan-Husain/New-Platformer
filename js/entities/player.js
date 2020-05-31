@@ -17,7 +17,7 @@ class player extends yentity {
     this.on_ground;
     this.jump_power = -170;
     this.jumps = 0;
-    this.max_jumps = 2; //000;
+    this.max_jumps = 2000;
 
     this.dash_power = 150;
 
@@ -25,6 +25,7 @@ class player extends yentity {
     this.do_combo;
     this.combo_timer = new ytimer(5);
     this.climb_timer = new ytimer(5);
+    this.all_coins_collected = false;
   } //end constructor
 
   update() {
@@ -32,6 +33,7 @@ class player extends yentity {
     super.update();
     t.reset_btn();
     t.move();
+    t.open_end_gate();
     t.adjustPosX();
     t.adjustPosY();
     t.camera_control();
@@ -42,6 +44,7 @@ class player extends yentity {
   move() {
     var t = this;
     var g = t.hit_test("tile", 0, 1); //collide ground from bottom
+    var tr = t.hit_test("trigger", 0, 0);
     var d = keyDown("SHIFT");
     if (d && keyDown("A")) {
       t.speedx -= t.speed;
@@ -56,6 +59,9 @@ class player extends yentity {
     if (keyDown("D")) {
       t.speedx += t.speed;
       this.dir = "right";
+    }
+    if (tr) {
+      console.log("ed");
     }
 
     if (keyWentUp("A") || keyWentUp("D")) {
@@ -92,7 +98,7 @@ class player extends yentity {
   }
 
   boundaries() {
-    if (this.y > 1500) {
+    if (this.y > 2200) {
       this.lose_life();
     }
   }
@@ -100,7 +106,7 @@ class player extends yentity {
     var t = this;
     var xs = Math.sign(t.speedx);
     for (let i = 0; i < Math.abs(t.speedx); i++) {
-      if (!t.hit_test("tile", xs, 0)) {
+      if (!t.hit_test("tile", xs, 0) && !t.hit_test("door", xs, 0) && !t.hit_test("trigger", xs, 0)) {
         t.move_by(xs, 0);
       } else {
         t.speedx = 0;
@@ -113,7 +119,7 @@ class player extends yentity {
     var t = this;
     var ys = Math.sign(t.speedy);
     for (let i = 0; i < Math.abs(t.speedy); i++) {
-      if (!t.hit_test("tile", 0, ys)) {
+      if (!t.hit_test("tile", 0, ys) && !t.hit_test("door", 0, ys) && !t.hit_test("trigger", 0, ys)) {
         t.move_by(0, ys);
       } else {
         t.speedy = 0;
@@ -154,7 +160,12 @@ class player extends yentity {
   camera_control() {
     var t = this;
     if (mouseIsPressed) {
-      camera.zoom = 0.5;
+      if (mouseButton == LEFT) {
+        camera.zoom = 0.5;
+      }
+      if (mouseButton == CENTER) {
+        camera.zoom = 0.25;
+      }
     } else {
       camera.zoom = 1;
     }
@@ -186,5 +197,17 @@ class player extends yentity {
     }
     t.do_combo = false; //do combo once
   } //end dash
+  open_end_gate() {
+    if (this.get_by_type("door").length != 0) {
+      if (this.all_coins_collected) {
+        console.log("all coins collected");
+        for (let i = 0; i < this.get_by_type("door").length; i++) {
+          if (this.get_by_type("door")[i]) {
+            this.get_by_type("door")[i].type = "opened_door";
+          }
+        }
+      }
+    }
+  }
 } //end class
 ///////////////end player///////////////////

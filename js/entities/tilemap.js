@@ -90,7 +90,6 @@ class tilemap extends yentity {
       var l = new yentity(x, y);
       l.type = "ladder";
       l.grafic_type = "none";
-      l.debug = true;
       l.h = 50;
       l.sethb_wh(20, 50);
       t.world.add(l);
@@ -104,6 +103,19 @@ class tilemap extends yentity {
       var bc = new coin(x, y);
       bc.type = "bonus_coin";
       t.world.add(bc);
+    }
+    if (id == 11) {
+      var dr = new tile(x, y);
+      dr.type = "door";
+      dr.w = 35;
+      dr.sethb_wh(35, 50);
+      t.world.add(dr);
+    }
+    if (id == -14) {
+      var tr = new tile(x, y);
+      tr.type = "trigger";
+      tr.tr_id = 4;
+      t.world.add(tr);
     }
   } //end gen_tile
 } //end class

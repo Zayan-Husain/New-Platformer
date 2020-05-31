@@ -6,7 +6,7 @@ var tste, tste2;
 var current_world;
 
 function setup() {
-  createCanvas(yscreen.w, yscreen.h);
+  var canvas = createCanvas(yscreen.w, yscreen.h);
   frameRate(60);
 
   //create worlds

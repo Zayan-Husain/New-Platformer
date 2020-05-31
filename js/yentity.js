@@ -25,7 +25,6 @@ class yentity {
   init() {
     var t = this;
 
-
     this.sprite = createSprite(this.x, this.y, this.w, this.h);
 
     if (t.grafic_type == "img") {
@@ -143,8 +142,10 @@ class yentity {
 
   update() {
     var t = this;
-	if(!t.sprite){return;}
-   //make sure xy == sprite xy
+    if (!t.sprite) {
+      return;
+    }
+    //make sure xy == sprite xy
     if (t.x != t.sprite.position.x || t.y != t.sprite.position.y) {
       t.x = t.sprite.position.x;
       t.y = t.sprite.position.y;

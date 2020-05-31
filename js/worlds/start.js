@@ -17,8 +17,6 @@ class start_screen extends world {
     t.btn_credits.sethb_wh(247, 49); //set hitbox width height
     t.btn_start.set_wh(200, 30); //set hitbox width height
     t.btn_credits.set_wh(247, 49); //set hitbox width height
-    t.btn_start.debug = true;
-    t.btn_credits.debug = true;
     t.add(t.btn_start);
     t.add(t.btn_credits);
   }
