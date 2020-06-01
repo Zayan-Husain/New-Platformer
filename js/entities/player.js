@@ -40,11 +40,13 @@ class player extends yentity {
     t.nextLevel();
     t.touchEnemy();
     t.boundaries();
+    t.trigger();
+    sessionStorage.clear();
+    localStorage.clear();
   } //end update
   move() {
     var t = this;
     var g = t.hit_test("tile", 0, 1); //collide ground from bottom
-    var tr = t.hit_test("trigger", 0, 0);
     var d = keyDown("SHIFT");
     if (d && keyDown("A")) {
       t.speedx -= t.speed;
@@ -59,9 +61,6 @@ class player extends yentity {
     if (keyDown("D")) {
       t.speedx += t.speed;
       this.dir = "right";
-    }
-    if (tr) {
-      console.log("ed");
     }
 
     if (keyWentUp("A") || keyWentUp("D")) {
@@ -85,6 +84,13 @@ class player extends yentity {
     t.speedx *= t.hf;
   } //end move
 
+  trigger() {
+    var t = this;
+    var tr = t.hit_test("trigger", 0, 0);
+    if (tr) {
+      console.log("touched trigger!!!");
+    }
+  }
   wall_climb() {
     var t = this;
     var gl = t.hit_test("tile", 2, 0); //collide ground from bottom
@@ -200,7 +206,8 @@ class player extends yentity {
   open_end_gate() {
     if (this.get_by_type("door").length != 0) {
       if (this.all_coins_collected) {
-        console.log("all coins collected");
+        var ding = new Audio("../.././sounds/ding-sound-effect_1.mp3");
+        ding.play();
         for (let i = 0; i < this.get_by_type("door").length; i++) {
           if (this.get_by_type("door")[i]) {
             this.get_by_type("door")[i].type = "opened_door";
